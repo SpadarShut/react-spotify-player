@@ -5,10 +5,11 @@ import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 
 import SidebarOption from "../SidebarOption";
 
-import "./sidebar.styles.css";
+import data from "../../mocks/data.json";
+import "./sidebar.styles.css"
 
 function Sidebar() {
-  const playlists = [];
+  const playlists = data.playlists.items;
 
   return (
     <div className="sidebar">
