@@ -3,13 +3,13 @@ import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 
+import { playLists } from '../../shared/api';
 import SidebarOption from "../SidebarOption";
 
-import data from "../../mocks/data.json";
 import "./sidebar.styles.css"
 
 function Sidebar() {
-  const playlists = data.playlists.items;
+  const playlists = playLists;
 
   return (
     <div className="sidebar">
@@ -25,12 +25,14 @@ function Sidebar() {
         Icon={LibraryMusicIcon}
         title="Your Library"
       />
-      <br />
-      <strong className="sidebar_title">PLAYLISTS</strong>
-      <hr />
-      {playlists?.map((playlist) => (
-        <SidebarOption key={playlist.name} title={playlist.name} />
-      ))}
+      <br/>
+      <section>
+        <h4 className="sidebar_title">PLAYLISTS</h4>
+        <hr className="sidebar_hr" />
+        {playlists?.map((playlist) => (
+          <SidebarOption key={playlist.name} title={playlist.name} />
+        ))}
+      </section>
     </div>
   );
 }

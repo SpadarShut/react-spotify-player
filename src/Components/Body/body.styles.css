@@ -4,6 +4,7 @@
     background: linear-gradient(rgb(91, 87, 115), rgba(0,0,0,1));
     color: white;
     padding: 30px;
+    overflow-y: auto;
     overflow-y: overlay;
 }
 
@@ -39,23 +40,32 @@
 .body_icons {
     display: flex;
     align-items: center;
+    gap: 20px;
 }
 
-.body_icons > .MuiSvgIcon-root {
-    margin-right: 20px;
-}
-
-.body_shuffle {
-    font-size: 80px !important;
+.body_playBtn {
+    padding: 0;
+    border: 0;
+    background: none;
+    border-radius: 50%;
     margin: 20px 0 20px 50px;
+    color: inherit;
 }
 
-.body_shuffle:hover {
+.body_playBtn > svg {
+    width: 80px;
+    height: 80px;
+}
+
+.body_playBtn:hover {
     transition: 100ms transform ease-in;
     transform: scale(1.08);
 }
 
 .body_songs {
-    margin: 20px -30px;
-    margin-bottom: 100px;
+    margin: 20px -30px 100px;
+}
+.body_list {
+    list-style: none;
+    padding: 0;
 }

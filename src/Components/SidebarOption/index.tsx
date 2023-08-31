@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { ElementType } from 'react'
 import './sidebarOption.styles.css'
 
-function SidebarOption({title, Icon}) {
+type Props = {
+    Icon?: ElementType;
+    title: string;
+}
+
+function SidebarOption({ title, Icon }: Props) {
     return (
         <div className='sidebarOption'>
             {Icon && <Icon className='sidebarOption_icon' />}

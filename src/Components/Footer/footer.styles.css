@@ -1,35 +1,35 @@
 .footer {
     position: fixed;
-    display: flex;
     justify-content: center;
     bottom: 0;
-    /* padding: 20px;
-    height: 65px; */
     width: 100%;
     background-color: black;
 }
 
 .footer_body {
     display: flex;
+    margin: 0 auto;
     justify-content: space-between;
-    width: 90%;
-    background-color: #282828;
     padding: 20px;
+    background-color: #282828;
+    color: white;
 }
-
+@media (min-width: 768px) {
+    .footer_body {
+        width: 90%;
+    }
+}
 
 .footer_left {
     flex: 0.3;
     display: flex;
     align-items: center;
-    color: white;
     max-width: 300px;
 }
 
 .footer_center {
     flex: 0.4;
     padding: 0 100px;
-    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -38,7 +38,6 @@
 
 .footer_right {
     flex: 0.3;
-    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -56,17 +55,35 @@
 }
 
 .footer_songInfo > h4 {
+
+}
+.footer_songTitle {
+    --lh: 1.15em;
     margin-bottom: 5px;
+    line-height: var(--lh);
+    max-height: calc(var(--lh) * 2);
+    font-size: 18px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: balance;
 }
 
-.footer_songInfo > p {
+.footer_songArtist {
     font-size: 12px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
-
-.footer_icon:hover,
-.footer_green:hover {
-    cursor: pointer;
-    transition: transform 0.2ms ease-in-out;
+.footer_btn {
+    color: inherit;
+    padding: 0;
+    border: 0;
+    background: none;
+    transition: transform 0.15s ease-in-out;
+}
+.footer_btn:disabled {
+    opacity: 0.5;
+}
+.footer_btn:not(:disabled):hover {
     transform: scale(1.2) !important;
 }
 

@@ -9,7 +9,7 @@
     padding-right: 10px;
 }
 
-.sidebar > hr {
+.sidebar_hr {
     border: 1px solid #282828;
     width: 90%;
     margin: 10px auto
@@ -25,4 +25,5 @@
     margin-left: 10px;
     padding: 5px;
     font-size: 12px;
+    font-weight: bold;
 }
