@@ -3,6 +3,7 @@ import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import PauseCircleFilled from '@material-ui/icons/PauseCircleFilled';
+import { LayoutGroup, motion } from 'framer-motion';
 
 import SongRow from '../SongRow';
 import Header from '../Header';
@@ -59,7 +60,8 @@ function Body() {
           {playList.map((track) => {
             const isCurrent = currentTrack?.track.id === track.id;
             return (
-              <li
+              <motion.li
+                layoutId={track.id}
                 key={track.id}
                 aria-current={isCurrent}
               >
@@ -71,7 +73,7 @@ function Body() {
                     play(track.id);
                   }}
                 />
-              </li>
+              </motion.li>
             );
           })}
         </ul>
