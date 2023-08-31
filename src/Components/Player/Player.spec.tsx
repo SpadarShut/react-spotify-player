@@ -1,9 +1,9 @@
 import { render as TLRender, screen, within } from '@testing-library/react';
-import userEvent from "@testing-library/user-event";
+import userEvent from '@testing-library/user-event';
 
 import Player from './index';
 
-import { playLists, discoverWeeklyTracks } from '../../shared/api'
+import { discoverWeeklyTracks, playLists } from '../../shared/api'
 
 function render() {
   const getContentRoot = () => screen.getByRole('main')
@@ -19,6 +19,9 @@ function render() {
     get contentRoot() {
       return getContentRoot()
     },
+    get tracksList() {
+      return within(getContentRoot()).getByRole('list');
+    },
     get bodyPlayPauseBtn () {
       return within(getContentRoot()).getByRole('button', { name: /(play|pause) current/i })
     },
@@ -30,6 +33,9 @@ function render() {
     },
     get nextTrackBtn() {
       return within(getPlayerRoot()).getByRole('button', { name: 'Skip to next'})
+    },
+    get shuffleBtn() {
+      return within(getPlayerRoot()).getByRole('button', { name: /shuffle/i})
     },
     get playerSongTitle() {
       return within(within(getPlayerRoot()).getByRole('figure')).getByRole('heading')
@@ -88,5 +94,47 @@ describe('Player page', () => {
 
     await clickTrack(discoverWeeklyTracks.at(-1)!.name);
     expect(nextTrackBtn).toBeDisabled();
+  });
+
+  describe('shuffle', () => {
+    it('should shuffle', async () => {
+      const { shuffleBtn, user, tracksList } = render();
+
+      expect(shuffleBtn).toHaveAccessibleName('Shuffle');
+      await user.click(shuffleBtn);
+      expect(shuffleBtn).toHaveAccessibleName('Unshuffle');
+
+      const tracks = within(tracksList).getAllByRole('listitem')
+      expect(tracks).toHaveLength(discoverWeeklyTracks.length);
+
+      const somePositionsChanged = tracks.some((track, i) => {
+        const defaultTrackAtIndex = discoverWeeklyTracks[i];
+        return !within(track).queryByRole('heading', { name: defaultTrackAtIndex.name });
+      })
+      expect(somePositionsChanged).toBe(true);
+    });
+
+    it('should keep current track first after shuffling', async () => {
+      const { shuffleBtn, user, clickTrack, playerSongTitle, tracksList } = render();
+
+      const randomTrack = discoverWeeklyTracks[5];
+      await clickTrack(randomTrack.name);
+      expect(playerSongTitle.textContent).toBe(randomTrack.name);
+
+      await user.click(shuffleBtn);
+
+      const tracks = within(tracksList).getAllByRole('heading')
+      expect(tracks[0]).toHaveTextContent(randomTrack.name)
+
+      // clicking shuffle again should restore default order
+      expect(shuffleBtn).toHaveAccessibleName('Unshuffle');
+      await user.click(shuffleBtn);
+
+      const unshuffledTracks = within(tracksList).getAllByRole('heading')
+      const somePositionsChanged = unshuffledTracks.some((trackHeader, i) => {
+        return trackHeader.textContent !== discoverWeeklyTracks[i].name;
+      })
+      expect(somePositionsChanged).toBe(false);
+    });
   });
 })

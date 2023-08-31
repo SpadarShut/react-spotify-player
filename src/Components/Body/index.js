@@ -7,7 +7,7 @@ import PauseCircleFilled from '@material-ui/icons/PauseCircleFilled';
 import SongRow from '../SongRow';
 import Header from '../Header';
 
-import { usePlayer } from '../Player/context';
+import { usePlayer } from '../Player/player';
 import { discoverWeeklyData, discoverWeeklyTracks } from '../../shared/api';
 
 import './body.styles.css';
@@ -17,7 +17,7 @@ function Body() {
 
   useEffect(() => {
     setPlayList(discoverWeeklyTracks);
-  }, [setPlayList]);
+  }, []);
 
   useEffect(() => {
     if (currentTrack) {

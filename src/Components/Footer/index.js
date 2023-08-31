@@ -8,7 +8,7 @@ import RepeatIcon from "@material-ui/icons/Repeat";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import VolumeDownIcon from "@material-ui/icons/VolumeDown";
 import { Grid, Slider } from "@material-ui/core";
-import { usePlayer } from '../Player/context';
+import { usePlayer } from '../Player/player';
 
 import "./footer.styles.css";
 
@@ -19,32 +19,36 @@ function Footer() {
     playList,
     togglePlay,
     playNext,
-    playPrev
+    playPrev,
+    toggleShuffle,
+    isShuffled
   } = usePlayer();
 
   return (
     <aside className="footer" role="region" aria-label="Player controls">
       <div className="footer_body">
         <figure className="footer_left">
-          {
-            currentTrack && (
-              <>
-                <img
-                  className="footer_albumLogo"
-                  src={currentTrack.track.album.images[0].url}
-                  alt=""
-                />
-                <figcaption className="footer_songInfo">
-                  <h4 className="footer_songTitle">{currentTrack.track.name}</h4>
-                  <p className={"footer_songArtist"}>{currentTrack.track.artists[0].name}</p>
-                </figcaption>
-              </>
-            )
-          }
+          {currentTrack && (
+            <>
+              <img
+                className="footer_albumLogo"
+                src={currentTrack.track.album.images[0].url}
+                alt=""
+              />
+              <figcaption className="footer_songInfo">
+                <h4 className="footer_songTitle">{currentTrack.track.name}</h4>
+                <p className={"footer_songArtist"}>{currentTrack.track.artists[0].name}</p>
+              </figcaption>
+            </>
+          )}
         </figure>
         <div className="footer_center">
-          <button className="footer_btn">
-            <ShuffleIcon className="footer_green" />
+          <button
+            className="footer_btn"
+            onClick={toggleShuffle}
+            aria-label={ isShuffled ? 'Unshuffle' :'Shuffle'}
+          >
+            <ShuffleIcon className={isShuffled ? 'footer_green' : ''} />
           </button>
           <button
             className="footer_btn"
@@ -83,7 +87,7 @@ function Footer() {
           </button>
         </div>
         <div className="footer_right">
-          <Grid container spacing={2}>
+          <Grid container alignItems="center" spacing={2}>
             <Grid item>
               <PlaylistPlayIcon />
             </Grid>

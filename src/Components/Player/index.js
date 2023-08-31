@@ -3,7 +3,7 @@ import Body from '../Body';
 import Footer from '../Footer';
 
 import './player.styles.css';
-import { PlayerProvider } from './context';
+import { PlayerProvider } from './player';
 
 function Player() {
   return (
